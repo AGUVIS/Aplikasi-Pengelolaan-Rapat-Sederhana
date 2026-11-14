@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Rapatku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <!-- Halaman ini hanya untuk pengguna yang sudah login -->
+  <script src="auth.js"></script>
+  <script>Auth.requireAuth("index.html");</script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navigasi utama">
+    <a class="brand" href="dashboard.html" aria-label="Rapatku, ke dashboard">
+      <img src="assets/dashboard/logo.svg" alt="" width="67" height="57">
+      <span class="brand-text"><span class="c-light">R</span><span class="c-orange">a</span><span class="c-light">patku</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav">
+        <li>
+          <a class="nav-item is-active" href="dashboard.html" aria-current="page">
+            <span class="nav-ico"><img src="assets/dashboard/nav-dashboard.svg" alt="" width="41" height="41"></span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" href="#" data-soon="Jadwal Rapat">
+            <span class="nav-ico"><img src="assets/dashboard/nav-calendar.svg" alt="" width="32" height="33"></span>
+            <span class="nav-label">Jadwal Rapat</span>
+            <span class="nav-badge" data-badge="meetings">5</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" href="#" data-soon="Undangan Rapat">
+            <span class="nav-ico"><img src="assets/dashboard/nav-mail.svg" alt="" width="36" height="36"></span>
+            <span class="nav-label">Undangan Rapat</span>
+            <span class="nav-badge" data-badge="invites">5</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" href="#" data-soon="Anggota Tim">
+            <span class="nav-ico"><img src="assets/dashboard/nav-people.svg" alt="" width="32" height="33"></span>
+            <span class="nav-label">Anggota Tim</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" href="#" data-soon="Pengaturan">
+            <span class="nav-ico"><img src="assets/dashboard/nav-settings.svg" alt="" width="38" height="37"></span>
+            <span class="nav-label">Pengaturan</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="dashboard.html" aria-label="Beranda"><img src="assets/dashboard/house.svg" alt="" width="16" height="16"></a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-current">Dashboard</span>
+      </nav>
+
+      <form class="search" role="search" onsubmit="return false">
+        <img src="assets/dashboard/search.svg" alt="" width="23" height="23">
+        <input type="search" id="search" placeholder="Cari rapat atau notulensi" aria-label="Cari rapat atau notulensi" autocomplete="off">
+      </form>
+
+      <button type="button" class="bell" id="bell" aria-label="Notifikasi">
+        <img src="assets/dashboard/bell.svg" alt="" width="31" height="31">
+      </button>
+
+      <div class="profile-wrap">
+        <button type="button" class="profile" id="profile-btn" aria-haspopup="true" aria-expanded="false" aria-controls="profile-menu">
+          <span class="avatar" aria-hidden="true"></span>
+          <span class="profile-name" id="profile-name">Pengguna</span>
+          <img src="assets/dashboard/arrow-down.svg" alt="" width="12" height="12">
+        </button>
+        <div class="profile-menu" id="profile-menu" role="menu" hidden>
+          <p class="profile-mail" id="profile-mail"></p>
+          <button type="button" role="menuitem" id="logout-btn">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Konten -->
+    <main class="content">
+      <div class="page-head">
+        <h1 id="greeting">Halo</h1>
+        <button type="button" class="btn-new" id="btn-new">
+          <img src="assets/dashboard/plus.svg" alt="" width="24" height="24">
+          <span>Buat Jadwal</span>
+        </button>
+      </div>
+
+      <div class="summary-head">
+        <h2>Ringkasan bulan ini</h2>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="summary-month" id="summary-month">Oktober 2026</span>
+      </div>
+
+      <section class="stats" id="stats" aria-label="Ringkasan"></section>
+
+      <div class="panels">
+        <section class="meetings" id="meetings" aria-label="Daftar rapat"></section>
+
+        <div class="side-col">
+          <!-- Kalender -->
+          <section class="calendar" aria-labelledby="cal-title">
+            <h2 id="cal-title">Kalender Rapat</h2>
+            <div class="cal-nav">
+              <button type="button" class="cal-btn" id="cal-prev" aria-label="Bulan sebelumnya">&lt;</button>
+              <span class="cal-month" id="cal-month" aria-live="polite">Oktober</span>
+              <button type="button" class="cal-btn" id="cal-next" aria-label="Bulan berikutnya">&gt;</button>
+            </div>
+            <div class="cal-week" aria-hidden="true">
+              <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+            <p class="cal-foot"><span class="dot dot-lg" aria-hidden="true"></span><span id="cal-count">0 Rapat bulan ini</span></p>
+          </section>
+
+          <!-- Tindak lanjut -->
+          <section class="tasks" aria-labelledby="tasks-title">
+            <div class="tasks-head">
+              <div class="tasks-title">
+                <h2 id="tasks-title">Tindak lanjut</h2>
+                <span class="count" id="tasks-count">0</span>
+              </div>
+              <button type="button" class="ellipsis" id="tasks-more" aria-label="Opsi tindak lanjut">
+                <img src="assets/dashboard/ellipsis.svg" alt="" width="17" height="17">
+              </button>
+            </div>
+            <ul class="task-list" id="task-list"></ul>
+            <div class="tasks-foot">
+              <button type="button" id="tasks-toggle">Lihat semua tugas &nbsp;→</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
